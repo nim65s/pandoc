@@ -448,7 +448,7 @@ blockToLaTeX (Div (identifier,classes,kvs) bs) = do
   lang <- toLang $ lookup "lang" kvs
   let wrapColumns = if "columns" `elem` classes
                        then \contents ->
-                          inCmd "begin" "columns" <> brackets "T"
+                          inCmd "begin" "columns"
                               $$ contents
                               $$ inCmd "end" "columns"
                        else id
