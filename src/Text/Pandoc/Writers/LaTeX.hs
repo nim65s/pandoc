@@ -448,7 +448,12 @@ blockToLaTeX (Div (identifier,classes,kvs) bs) = do
   lang <- toLang $ lookup "lang" kvs
   let wrapColumns = if "columns" `elem` classes
                        then \contents ->
-                          inCmd "begin" "columns"
+                          let fromPct xs =
+                                case reverse xs of
+                                     '%':ds -> '0':'.': reverse ds
+                                     _      -> xs
+                              pos = maybe "T" fromPct (lookup "pos" kvs)
+                          in inCmd "begin" "columns" <> brackets (text pos)
                               $$ contents
                               $$ inCmd "end" "columns"
                        else id
