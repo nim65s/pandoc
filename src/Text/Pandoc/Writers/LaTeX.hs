@@ -452,7 +452,7 @@ blockToLaTeX (Div (identifier,classes,kvs) bs) = do
                                 case reverse xs of
                                      '%':ds -> '0':'.': reverse ds
                                      _      -> xs
-                              pos = maybe "T" fromPct (lookup "pos" kvs)
+                              pos = maybe "c" fromPct (lookup "pos" kvs)
                           in inCmd "begin" "columns" <> brackets (text pos)
                               $$ contents
                               $$ inCmd "end" "columns"
